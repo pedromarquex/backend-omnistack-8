@@ -1,18 +1,21 @@
 // área de imports
 const express = require('express');
+const DevController = require('./controllers/DevController');
+const LikeController = require('./controllers/LikeController');
+const DislikeController = require('./controllers/DislikeController');
 
 // iniciando o router
 const routes = express.Router();
 
-// rotas da aplicação
-routes.get('/', (req, res) => {
+// rotas sobre Devs
+routes.post('/devs', DevController.store);
+routes.get('/devs', DevController.index);
 
-    return res.json({ message: `Hello ${req.query.name}` });
-});
+// rotas sobre Likes
+routes.post('/devs/:devId/likes', LikeController.store);
 
-routes.post('/devs', (req, res) => {
-    return res.json(req.body);
-});
+// rotas sobre dislikes
+routes.post('/devs/:devId/dislikes', DislikeController.store);
 
 // exportando rotas
 module.exports = routes;
